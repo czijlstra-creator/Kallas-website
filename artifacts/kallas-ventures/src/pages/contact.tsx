@@ -8,7 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Loader2, CheckCircle2 } from "lucide-react";
+import { Loader2, CheckCircle2, UploadCloud, X } from "lucide-react";
 import { motion } from "framer-motion";
 
 // Sign up at formspree.io, create a form, and paste your endpoint here
@@ -27,6 +27,20 @@ export default function Contact() {
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const dropped = e.dataTransfer.files[0];
+    if (dropped) setFile(dropped);
+  };
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selected = e.target.files?.[0];
+    if (selected) setFile(selected);
+  };
 
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -36,21 +50,24 @@ export default function Contact() {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
+      const payload = new window.FormData();
+      payload.append("name", data.name);
+      payload.append("email", data.email);
+      payload.append("company", data.company ?? "");
+      payload.append("message", data.message);
+      if (file) payload.append("attachment", file);
+
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          company: data.company ?? "",
-          message: data.message,
-        }),
+        headers: { Accept: "application/json" },
+        body: payload,
       });
 
       if (!response.ok) throw new Error("Submission failed");
 
       setSubmitted(true);
       form.reset();
+      setFile(null);
     } catch {
       toast({
         variant: "destructive",
@@ -166,6 +183,44 @@ export default function Contact() {
                     <FormMessage />
                   </FormItem>
                 )} />
+
+                <div>
+                  <p className="text-sm font-medium text-[#0E1B4D] mb-2">Drop us your pitch(deck) <span className="text-muted-foreground font-normal">(optional)</span></p>
+                  <div
+                    onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                    onDragLeave={() => setIsDragging(false)}
+                    onDrop={handleDrop}
+                    className={`relative flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded p-8 transition-colors cursor-pointer ${isDragging ? "border-[#2575E8] bg-[#2575E8]/5" : "border-[#C8D5E3] bg-white hover:border-[#2575E8]/50"}`}
+                    onClick={() => document.getElementById("pitch-file-input")?.click()}
+                  >
+                    <input
+                      id="pitch-file-input"
+                      type="file"
+                      accept=".pdf,.ppt,.pptx,.doc,.docx"
+                      className="hidden"
+                      onChange={handleFileInput}
+                    />
+                    {file ? (
+                      <div className="flex items-center gap-3 text-sm text-[#0E1B4D]">
+                        <UploadCloud className="w-5 h-5 text-[#2575E8]" />
+                        <span className="font-medium truncate max-w-xs">{file.name}</span>
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); setFile(null); }}
+                          className="text-muted-foreground hover:text-[#0E1B4D] transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <UploadCloud className="w-8 h-8 text-[#C8D5E3]" />
+                        <p className="text-sm text-muted-foreground">Drag and drop or <span className="text-[#2575E8]">browse</span></p>
+                        <p className="text-xs text-muted-foreground">PDF, PPT, PPTX, DOC up to 10MB</p>
+                      </>
+                    )}
+                  </div>
+                </div>
 
                 <Button
                   type="submit"
