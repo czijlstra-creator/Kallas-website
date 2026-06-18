@@ -55,7 +55,7 @@ export default function Contact() {
       toast({
         variant: "destructive",
         title: "Something went wrong",
-        description: "Please try again or email us directly at inquiries@kallasventures.com",
+        description: "Please try again or refresh the page and try once more.",
       });
     } finally {
       setIsSubmitting(false);
@@ -80,7 +80,6 @@ export default function Contact() {
             <p>Euclideslaan 55</p>
             <p>3584 BM Utrecht</p>
             <p>The Netherlands</p>
-            <p className="pt-2 text-[#2575E8]">inquiries@kallasventures.com</p>
           </address>
         </motion.header>
 

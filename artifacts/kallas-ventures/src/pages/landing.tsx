@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function Landing() {
   return (
     <PageTransition>
-      <div className="relative min-h-screen overflow-hidden -mt-32 flex items-end pb-20">
+      <div className="relative min-h-screen overflow-hidden mt-0 md:-mt-32 flex items-end pb-20">
         {/* Glass card — bottom-left anchor */}
         <div className="container max-w-6xl mx-auto px-6 relative z-10 w-full">
           <motion.div
