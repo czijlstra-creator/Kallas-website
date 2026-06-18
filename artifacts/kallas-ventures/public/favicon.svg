@@ -1,3 +1,25 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="180" height="180" rx="36" fill="#FF3C00"/>
+  <!-- Top-left face of top diamond (dark navy) -->
+  <polygon points="90,30 38,62 90,94" fill="#0C1A35"/>
+  <!-- Top-right face of top diamond (light silver) -->
+  <polygon points="90,30 142,62 90,94" fill="#B8C5D0"/>
+
+  <!-- Upper-left side face (dark navy) -->
+  <polygon points="38,62 90,94 90,122 38,90" fill="#0C1A35"/>
+  <!-- Lower-left side face (dark navy, slightly lighter) -->
+  <polygon points="38,90 90,122 90,150 38,118" fill="#112048"/>
+
+  <!-- Upper-right side face (light silver) -->
+  <polygon points="142,62 142,90 90,122 90,94" fill="#B8C5D0"/>
+  <!-- Lower-right side face (bright blue) -->
+  <polygon points="142,90 142,118 90,150 90,122" fill="#1E69D4"/>
+
+  <!-- Outer hexagon border -->
+  <polygon points="90,30 142,62 142,118 90,150 38,118 38,62" fill="none" stroke="#060C18" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Vertical center divider -->
+  <line x1="90" y1="30" x2="90" y2="150" stroke="#060C18" stroke-width="2.5"/>
+  <!-- Upper V divider (top face / side faces boundary) -->
+  <polyline points="38,62 90,94 142,62" fill="none" stroke="#060C18" stroke-width="2.5"/>
+  <!-- Mid V divider (horizontal band split) -->
+  <polyline points="38,90 90,122 142,90" fill="none" stroke="#060C18" stroke-width="2.5"/>
 </svg>
