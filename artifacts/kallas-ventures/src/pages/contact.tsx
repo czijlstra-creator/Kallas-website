@@ -185,7 +185,7 @@ export default function Contact() {
                 )} />
 
                 <div>
-                  <p className="text-sm font-medium text-[#0E1B4D] mb-2">Drop us your pitch(deck) <span className="text-muted-foreground font-normal">(optional)</span></p>
+                  <p className="text-sm font-medium text-[#0E1B4D] mb-2">Drop us your pitch <span className="text-muted-foreground font-normal">(optional)</span></p>
                   <div
                     onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
                     onDragLeave={() => setIsDragging(false)}
