@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { Linkedin } from "lucide-react";
 import kallaLogoPath from "@assets/kallas-logo-clean_(4)_(1)_1779887979267.png";
 
 export function Footer() {
@@ -58,9 +59,18 @@ export function Footer() {
           <p className="text-xs text-white/40">
             &copy; {new Date().getFullYear()} Kallas Ventures. All rights reserved.
           </p>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             <span className="text-xs text-white/40 hover:text-white transition-colors cursor-pointer">Privacy Policy</span>
             <span className="text-xs text-white/40 hover:text-white transition-colors cursor-pointer">Terms of Service</span>
+            <a
+              href="https://www.linkedin.com/company/kallas-ventures"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 hover:text-white transition-colors"
+              aria-label="Kallas Ventures on LinkedIn"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </div>
