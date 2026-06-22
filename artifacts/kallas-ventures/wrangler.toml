@@ -1,0 +1,6 @@
+name = "kallas-website"
+compatibility_date = "2026-06-18"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./dist-static"
